@@ -2,11 +2,11 @@ console.log("main.js berhasil dimuat!");
 
 // Inisialisasi Monetag
 (function initializeMonetag() {
-    if (!window.show_9110246) {
+    if (!window.show_9164092) {
         const tag = document.createElement('script');
         tag.src = '//whephiwums.com/sdk.js'; // URL SDK Monetag
-        tag.dataset.zone = '9110246';
-        tag.dataset.sdk = 'show_9110246';
+        tag.dataset.zone = '9164092';
+        tag.dataset.sdk = 'show_9164092';
         document.body.appendChild(tag);
         console.log("SDK Monetag berhasil dimuat.");
     }
@@ -15,8 +15,8 @@ console.log("main.js berhasil dimuat!");
 // Fungsi untuk menampilkan iklan dan memperbarui reward
 function showRewardedAd() {
     try {
-        if (typeof show_9110246 === "function") {
-            show_9110246().then(() => {
+        if (typeof show_9164092 === "function") {
+            show_9164092().then(() => {
                 console.log("Iklan berhasil ditampilkan. Menunggu selama 15 detik...");
                 // Timer selama 15 detik
                 setTimeout(() => {
