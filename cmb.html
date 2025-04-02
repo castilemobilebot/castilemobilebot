@@ -112,8 +112,7 @@
         }
     </style>
 </head>
-
-<body onload="loadUserData()">
+<body>
     <div class="container">
         <!-- Logo -->
         <div class="logo">
@@ -122,20 +121,20 @@
 
         <!-- User Info -->
         <div class="user-info">
-            <img id="userAvatar" src="frontend/assets/default-avatar.png" alt="User Avatar">
-            <h2 id="userName">Nama User</h2>
-            <p>@<span id="userID">UserID</span></p>
+            <img id="userAvatar" src="assets/default-avatar.png" alt="Avatar" style="width:80px;height:80px;border-radius:50%;">
+            <h3 id="userName">Nama User</h3>
+            <small>@<span id="userID">UserID</span></small>
         </div>
 
         <!-- Balance Cards -->
         <div class="balance-container">
             <div class="balance-card">
                 <h3>Iklan Hari Ini</h3>
-                <h2><span id="ads-count">0</span> / 100</h2>
+                <p><span id="ads-count">0</span> / 200</p>
             </div>
             <div class="balance-card">
                 <h3>Balance</h3>
-                <h2>Rp<span id="balance">0.00</span></h2>
+                <p>Rp<span id="balance">0.00</span></p>
             </div>
         </div>
 
