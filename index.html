@@ -158,6 +158,14 @@
     </footer>
 
     <!-- Path untuk file JavaScript -->
+    <script async src="https://telegram.org/js/telegram-web-app.js"></script>
+    <h1>Selamat Datang di Castile Mobile Bot!</h1>
+    <p>Gunakan WebApp ini untuk mendapatkan reward dan saldo DANA.</p>
+    <script>
+        Telegram.WebApp.ready(); // Menginisialisasi WebApp Telegram
+        const userData = Telegram.WebApp.initDataUnsafe;
+        document.body.innerHTML += `<p>User ID: ${userData.user.id}</p>`;
+    </script>
     <script src="scripts/main.js"></script>
     <script src="scripts/event.js"></script>
     <script src="scripts/payload.js"></script>
