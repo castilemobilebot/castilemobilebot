@@ -6,14 +6,15 @@
     <title>Castile Mobile Bot</title>
     <meta name="description" content="Tonton iklan, dapatkan saldo!">
     <meta name="monetag" content="59449f42804a7be353cd0932a3d9398d">
+    <meta name="theme-color" content="#0073e6">
+    <meta name="mobile-web-app-capable" content="yes">
+
     <!-- Telegram Web App SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
-
     <!-- Monetag Integration -->
-    <script src='//whephiwums.com/sdk.js' data-zone='9164092' data-sdk='show_9164092'></script>
+    <script src='//whephiwums.com/sdk.js' data-zone='9164092' data-sdk='show_9164092' defer></script>
     
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -114,19 +115,14 @@
 </head>
 <body>
     <div class="container">
-        <!-- Logo -->
         <div class="logo">
             <img src="assets/logo.png" alt="Logo">
         </div>
-
-        <!-- User Info -->
         <div class="user-info">
-            <img id="userAvatar" src="assets/default-avatar.png" alt="Avatar" style="width:80px;height:80px;border-radius:50%;">
+            <img id="userAvatar" src="assets/default-avatar.png" alt="Avatar">
             <h3 id="userName">Nama User</h3>
             <small>@<span id="userID">UserID</span></small>
         </div>
-
-        <!-- Balance Cards -->
         <div class="balance-container">
             <div class="balance-card">
                 <h3>Iklan Hari Ini</h3>
@@ -137,38 +133,22 @@
                 <p>Rp<span id="balance">0.00</span></p>
             </div>
         </div>
-
-        <!-- Warning -->
-        <div>
-            <p style="color: red; font-weight: bold;">Peringatan Wajib: 1 HP, 1 Akun, 1 IP</p>
-        </div>
-
-        <!-- Buttons -->
         <div class="buttons-container">
             <button onclick="showRewardedAd()">Tonton Iklan +5</button>
             <button onclick="withdraw()">Withdraw</button>
             <button onclick="viewHistory()">Riwayat Withdraw</button>
-            <button onclick="goBack()">Kembali ke Menu</button>
         </div>
     </div>
-
-    <!-- Footer -->
     <footer>
         <p>© 2025 Castile Mobile Bot</p>
     </footer>
-
-    <!-- Path untuk file JavaScript -->
-    <script async src="https://telegram.org/js/telegram-web-app.js"></script>
-    <h1>Selamat Datang di Castile Mobile Bot!</h1>
-    <p>Gunakan WebApp ini untuk mendapatkan reward dan saldo DANA.</p>
-    <script>
-        Telegram.WebApp.ready(); // Menginisialisasi WebApp Telegram
-        const userData = Telegram.WebApp.initDataUnsafe;
-        document.body.innerHTML += `<p>User ID: ${userData.user.id}</p>`;
+    <script defer>
+        Telegram.WebApp.ready();
+        const userData = Telegram.WebApp.initDataUnsafe || { user: { id: 'Unknown', first_name: 'User', username: 'unknown' } };
+        document.getElementById('userName').textContent = userData.user.first_name;
+        document.getElementById('userID').textContent = userData.user.username;
     </script>
-    <script src="scripts/main.js"></script>
-    <script src="scripts/event.js"></script>
-    <script src="scripts/payload.js"></script>
-    <script src="scripts/webapp.js"></script>
+    <script src="scripts/main.js" defer></script>
+    <script src="scripts/event.js" defer></script>
 </body>
 </html>
