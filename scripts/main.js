@@ -1,89 +1,69 @@
-console.log("main.js berhasil dimuat!");
+console.log('main.js berhasil dimuat!');
 
-// Inisialisasi Monetag
+// Menambahkan integrasi Monetag
 (function initializeMonetag() {
-    if (!window.show_9164092) {
+    if (!window.show_9110246) {
         const tag = document.createElement('script');
-        tag.src = '//whephiwums.com/sdk.js'; // URL SDK Monetag
-        tag.dataset.zone = '9164092';
-        tag.dataset.sdk = 'show_9164092';
+        tag.src = '//whephiwums.com/sdk.js'; // Pastikan URL ini benar sesuai dengan Monetag SDK
+        tag.dataset.zone = '9110246';
+        tag.dataset.sdk = 'show_9110246';
         document.body.appendChild(tag);
-        console.log("SDK Monetag berhasil dimuat.");
     }
 })();
 
-// Menampilkan iklan Monetag dan memberikan reward
+// Fungsi untuk menunjukkan iklan dan memperbarui reward
 function showRewardedAd() {
     try {
-        if (typeof show_9164092 !== "undefined") {
-            show_9164092({
-                // Callback ketika iklan selesai ditonton
-                onComplete: () => {
-                    console.log("Iklan selesai ditonton. Menambahkan saldo.");
-                    updateBalance(0.005); // Tambahkan 0.005 poin ke saldo
-                    updateAdsCount(1); // Tambahkan jumlah iklan yang ditonton
-                    alert("Iklan selesai ditonton! Saldo Anda telah diperbarui.");
-                },
-                // Callback ketika pengguna menutup iklan sebelum selesai
-                onClose: () => {
-                    console.log("Iklan ditutup sebelum selesai.");
-                    alert("Anda menutup iklan sebelum selesai. Tidak ada saldo yang ditambahkan.");
-                }
+        const userId = window.Telegram.WebApp.initDataUnsafe.user.id; // Mendapatkan ID pengguna dari Telegram WebApp
+
+        if (typeof show_9110246 === 'function') {
+            show_9110246().then(() => {
+                // Timer selama 15 detik
+                setTimeout(() => {
+                    // Memperbarui reward pengguna
+                    const adsCountElem = document.getElementById('ads-count');
+                    const balanceElem = document.getElementById('balance');
+
+                    if (adsCountElem && balanceElem) {
+                        let adsCount = Number(adsCountElem.textContent);
+                        let balance = parseFloat(balanceElem.textContent);
+
+                        if (adsCount < 200) {
+                            adsCount += 1;
+                            balance += 5; // Menambahkan reward +5 poin
+
+                            adsCountElem.textContent = adsCount;
+                            balanceElem.textContent = balance;
+
+                            alert('Anda telah menonton iklan! Reward: +5 poin');
+                        } else {
+                            alert('Anda telah mencapai batas maksimum 200 iklan.');
+                        }
+                    } else {
+                        console.error('Elemen HTML untuk ads-count atau balance tidak ditemukan.');
+                        alert('Terjadi kesalahan pada elemen halaman.');
+                    }
+                }, 15000); // Durasi 15 detik
+            }).catch(error => {
+                console.error('Iklan gagal ditampilkan:', error);
+                alert('Terjadi kesalahan saat menampilkan iklan.');
             });
         } else {
-            alert("Iklan tidak tersedia saat ini.");
-            console.error("show_9164092 tidak ditemukan.");
+            alert('Iklan belum siap. Silakan coba lagi nanti.');
         }
     } catch (error) {
-        console.error("Error saat menampilkan iklan:", error);
+        console.error('Error dalam showRewardedAd:', error);
+        alert('Terjadi kesalahan saat mencoba menonton iklan.');
     }
 }
 
-// Fungsi untuk memperbarui saldo pengguna
-function updateBalance(points) {
-    const balanceElement = document.getElementById("balance");
-    let currentBalance = parseFloat(balanceElement.textContent) || 0.005;
-    currentBalance += 0.005 points;
-    balanceElement.textContent = currentBalance.toFixed(2);
-    console.log(`Saldo diperbarui: Rp ${currentBalance}`);
-}
-
-// Fungsi untuk memperbarui jumlah iklan yang ditonton
-function updateAdsCount() {
-    const adsCountElement = document.getElementById("ads-count");
-    let currentCount = parseInt(adsCountElement.textContent) || 1;
-    currentCount += 1;
-    adsCountElement.textContent = currentCount;
-    console.log(`Jumlah iklan ditonton diperbarui: ${currentCount}`);
-}
-
-// Proses withdraw saldo
-function withdraw() {
-    alert("Withdraw sedang diproses...");
-    console.log("Fungsi withdraw dipanggil.");
-    // Tambahkan logika untuk pengurangan saldo dan pengiriman data withdraw
-}
-
-// Menampilkan riwayat withdraw
-function viewHistory() {
-    alert("Menampilkan riwayat withdraw...");
-    console.log("Fungsi riwayat withdraw dipanggil.");
-
-    // Dummy data untuk riwayat withdraw
-    const history = [
-        { amount: 5000, date: "2025-04-01", status: "Berhasil" },
-        { amount: 10000, date: "2025-03-28", status: "Pending" }
-    ];
-
-    let historyText = "📜 Riwayat Withdraw:\n";
-    history.forEach(item => {
-        historyText += `- ${item.date}: Rp ${item.amount} (${item.status})\n`;
-    });
-    alert(historyText);
-}
-
-// Navigasi kembali ke menu utama
-function goBack() {
-    alert("Kembali ke menu utama...");
-    console.log("Navigasi ke menu utama.");
-}
+// Tambahkan event listener ke tombol "Tonton Iklan"
+document.addEventListener('DOMContentLoaded', () => {
+    const adButton = document.getElementById('show-ad-button');
+    if (adButton) {
+        adButton.addEventListener('click', showRewardedAd);
+        console.log('Event listener berhasil ditambahkan ke tombol Tonton Iklan.');
+    } else {
+        console.error('Tombol Tonton Iklan tidak ditemukan.');
+    }
+});
