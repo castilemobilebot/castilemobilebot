@@ -17,8 +17,8 @@ if (userData.user) {
 // Memperbarui saldo
 function updateBalance(points) {
     const balanceElement = document.getElementById("balance");
-    let currentBalance = parseFloat(balanceElement.textContent) || 0;
-    currentBalance += points;
+    let currentBalance = parseFloat(balanceElement.textContent) || 0.005;
+    currentBalance += 0.005points;
     balanceElement.textContent = currentBalance.toFixed(2);
     console.log(`Saldo diperbarui: Rp ${currentBalance}`);
 }
