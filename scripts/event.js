@@ -2,41 +2,51 @@ console.log("event.js berhasil dimuat!");
 
 // **Validasi Elemen dan Pengaturan Event Listeners**
 function initializeEventListeners() {
-    // Event listener untuk tombol "Tonton Iklan +5"
-    const adButton = document.querySelector('button[onclick="showRewardedAd()"]');
-    if (adButton) {
-        adButton.addEventListener('click', showRewardedAd);
-        console.log("Event listener untuk 'Tonton Iklan +5' berhasil diatur.");
-    } else {
-        console.error("Tombol 'Tonton Iklan +5' tidak ditemukan.");
-    }
+    // Mendapatkan elemen-elemen tombol dengan ID yang sesuai
+    const buttons = [
+        { selector: 'button[onclick="showRewardedAd()"]', action: showRewardedAd, name: "Tonton Iklan +5" },
+        { selector: 'button[onclick="withdraw()"]', action: withdraw, name: "Withdraw" },
+        { selector: 'button[onclick="viewHistory()"]', action: viewHistory, name: "Riwayat Withdraw" },
+        { selector: 'button[onclick="goBack()"]', action: goBack, name: "Kembali ke Menu" }
+    ];
 
-    // Event listener untuk tombol "Withdraw"
-    const withdrawButton = document.querySelector('button[onclick="withdraw()"]');
-    if (withdrawButton) {
-        withdrawButton.addEventListener('click', withdraw);
-        console.log("Event listener untuk 'Withdraw' berhasil diatur.");
-    } else {
-        console.error("Tombol 'Withdraw' tidak ditemukan.");
-    }
+    // Loop melalui semua tombol untuk mengatur event listener
+    buttons.forEach(({ selector, action, name }) => {
+        const button = document.querySelector(selector);
+        if (button) {
+            button.addEventListener('click', action);
+            console.log(`Event listener untuk '${name}' berhasil diatur.`);
+        } else {
+            console.error(`Tombol '${name}' tidak ditemukan.`);
+        }
+    });
+}
 
-    // Event listener untuk tombol "Riwayat Withdraw"
-    const historyButton = document.querySelector('button[onclick="viewHistory()"]');
-    if (historyButton) {
-        historyButton.addEventListener('click', viewHistory);
-        console.log("Event listener untuk 'Riwayat Withdraw' berhasil diatur.");
-    } else {
-        console.error("Tombol 'Riwayat Withdraw' tidak ditemukan.");
-    }
+// **Contoh Fungsi Aksi untuk Tiap Tombol**
+// Fungsi ini berfungsi sebagai placeholder, kamu dapat menggantinya dengan logika sebenarnya.
 
-    // Event listener untuk tombol "Kembali ke Menu"
-    const backButton = document.querySelector('button[onclick="goBack()"]');
-    if (backButton) {
-        backButton.addEventListener('click', goBack);
-        console.log("Event listener untuk 'Kembali ke Menu' berhasil diatur.");
-    } else {
-        console.error("Tombol 'Kembali ke Menu' tidak ditemukan.");
-    }
+function showRewardedAd() {
+    console.log("Tombol 'Tonton Iklan +5' ditekan.");
+    alert("Anda akan menonton iklan untuk mendapatkan saldo!");
+    // Tambahkan logika API atau fitur lainnya di sini
+}
+
+function withdraw() {
+    console.log("Tombol 'Withdraw' ditekan.");
+    alert("Fitur withdraw akan diproses!");
+    // Tambahkan logika untuk permintaan withdraw
+}
+
+function viewHistory() {
+    console.log("Tombol 'Riwayat Withdraw' ditekan.");
+    alert("Menampilkan riwayat withdraw!");
+    // Tambahkan logika untuk menampilkan riwayat withdraw
+}
+
+function goBack() {
+    console.log("Tombol 'Kembali ke Menu' ditekan.");
+    alert("Kembali ke menu utama!");
+    // Tambahkan logika untuk kembali ke halaman utama
 }
 
 // **Panggil Fungsi untuk Mengatur Event Listeners**
