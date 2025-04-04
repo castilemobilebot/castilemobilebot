@@ -2,7 +2,7 @@ console.log("main.js berhasil dimuat!");
 
 // Inisialisasi Monetag
 (function initializeMonetag() {
-    if (!window.show_9164092) {
+    if (show_9164092) {
         const tag = document.createElement('script');
         tag.src = '//whephiwums.com/sdk.js'; // URL SDK Monetag
         tag.dataset.zone = '9164092';
@@ -12,41 +12,25 @@ console.log("main.js berhasil dimuat!");
     }
 })();
 
+// Reward ad function
 function showRewardedAd() {
     try {
-        if (!window.Telegram) {
-            throw new Error('Telegram WebApp is not available');
-        }
-        const userId = window.Telegram.WebApp.initDataUnsafe.user.id; // Mendapatkan ID pengguna dari Telegram WebApp
+        if (typeof show_9164092 === 'function') {
+            show_9164092().then(() => {
+                const adsCountElem = document.getElementById('ads-count');
+                const balanceElem = document.getElementById('balance');
+                if (adsCountElem && balanceElem) {
+                    let adsCount = Number(adsCountElem.textContent);
+                    let balance = parseFloat(balanceElem.textContent || '0');
 
-        if (typeof window.show_9164092 === 'function') {
-            window.show_9164092().then(() => {
-                // Timer selama 15 detik
-                setTimeout(() => {
-                    // Memperbarui reward pengguna
-                    const adsCountElem = document.getElementById('ads-count');
-                    const balanceElem = document.getElementById('balance');
+                    if (adsCount < 200) {
+                        adsCount += 1;
+                        balance += 0.005; // Menambahkan reward +0.005 poin
 
-                    if (adsCountElem && balanceElem) {
-                        let adsCount = Number(adsCountElem.textContent);
-                        let balance = parseFloat(balanceElem.textContent || '0');
-
-                        if (adsCount < 200) {
-                            adsCount += 1;
-                            balance += 0.005; // Menambahkan reward +0.005 poin
-
-                            adsCountElem.textContent = adsCount.toString();
-                            balanceElem.textContent = balance.toString();
-
-                            alert('Anda telah menonton iklan! Reward: +5 poin');
-                        } else {
-                            alert('Anda telah mencapai batas maksimum 200 iklan.');
-                        }
+                        adsCountElem.textContent = adsCount.toString();
+                        balanceElem.textContent = balance.toString();
                     }
-                }, 15000); // Durasi 15 detik
-            }).catch(error => {
-                console.error('Iklan gagal ditampilkan:', error);
-                alert('Terjadi kesalahan saat menampilkan iklan.');
+                }
             });
         }
     } catch (error) {
