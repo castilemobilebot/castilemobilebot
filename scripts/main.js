@@ -1,3 +1,4 @@
+// **Main Script untuk Castile Mobile Bot**
 console.log("main.js berhasil dimuat!");
 
 // **Inisialisasi Monetag SDK**
@@ -18,33 +19,35 @@ console.log("main.js berhasil dimuat!");
 function showRewardedAd() {
     try {
         if (typeof show_9164092 === "function") {
-            show_9164092().then(() => {
-                const adsCountElem = document.getElementById("ads-count");
-                const balanceElem = document.getElementById("balance");
+            show_9164092()
+                .then(() => {
+                    const adsCountElem = document.getElementById("ads-count");
+                    const balanceElem = document.getElementById("balance");
 
-                if (adsCountElem && balanceElem) {
-                    let adsCount = Number(adsCountElem.textContent || "0");
-                    let balance = parseFloat(balanceElem.textContent || "0");
+                    if (adsCountElem && balanceElem) {
+                        let adsCount = Number(adsCountElem.textContent || "0");
+                        let balance = parseFloat(balanceElem.textContent || "0");
 
-                    // Cek batas maksimal iklan
-                    if (adsCount < 200) {
-                        adsCount += 1;
-                        balance += 0.005; // Tambahkan reward 0.005 poin
+                        // Validasi batas maksimal iklan
+                        if (adsCount < 200) {
+                            adsCount += 1;
+                            balance += 0.005; // Tambahkan reward iklan sebesar Rp 0.005
 
-                        adsCountElem.textContent = adsCount.toString();
-                        balanceElem.textContent = balance.toFixed(3); // Format saldo dengan presisi
-                        console.log(`Iklan berhasil ditonton. Total iklan: ${adsCount}, Saldo: Rp ${balance}`);
+                            adsCountElem.textContent = adsCount.toString();
+                            balanceElem.textContent = balance.toFixed(3); // Format saldo dengan presisi
+                            console.log(`Iklan berhasil ditonton. Total iklan: ${adsCount}, Saldo: Rp ${balance}`);
+                        } else {
+                            alert("Batas maksimal iklan harian telah tercapai.");
+                            console.warn("Pengguna telah mencapai batas iklan harian.");
+                        }
                     } else {
-                        alert("Batas maksimal iklan telah tercapai.");
-                        console.warn("Pengguna telah mencapai batas iklan harian.");
+                        console.warn("Elemen 'ads-count' atau 'balance' tidak ditemukan di HTML.");
                     }
-                } else {
-                    console.warn("Elemen 'ads-count' atau 'balance' tidak ditemukan di HTML.");
-                }
-            }).catch((error) => {
-                console.error("Error saat menampilkan iklan:", error);
-                alert("Terjadi kesalahan saat menampilkan iklan.");
-            });
+                })
+                .catch((error) => {
+                    console.error("Error saat menampilkan iklan:", error);
+                    alert("Terjadi kesalahan saat menampilkan iklan.");
+                });
         } else {
             console.error("Fungsi 'show_9164092' tidak tersedia.");
             alert("SDK Monetag belum dimuat.");
@@ -61,11 +64,11 @@ function withdrawFunds() {
     if (balanceElem) {
         let currentBalance = parseFloat(balanceElem.textContent || "0");
 
-        // Atur batas minimal penarikan di sini
-        const minimalWithdraw = 5000; 
+        // Atur batas minimal penarikan
+        const minimalWithdraw = 5000;
 
         if (currentBalance >= minimalWithdraw) {
-            currentBalance -= minimalWithdraw; // Kurangi saldo dengan nilai minimal penarikan
+            currentBalance -= minimalWithdraw; // Kurangi saldo dengan nilai minimal withdraw
             balanceElem.textContent = currentBalance.toFixed(2);
 
             alert(`Withdraw sebesar Rp ${minimalWithdraw} telah diproses.`);
@@ -101,3 +104,9 @@ function goBack() {
     alert("Kembali ke menu utama...");
     console.log("Pengguna kembali ke menu utama.");
 }
+
+// **Event untuk Tombol**
+document.getElementById("rewardedAdButton").addEventListener("click", showRewardedAd);
+document.getElementById("withdrawButton").addEventListener("click", withdrawFunds);
+document.getElementById("historyButton").addEventListener("click", viewHistory);
+document.getElementById("menuButton").addEventListener("click", goBack);
