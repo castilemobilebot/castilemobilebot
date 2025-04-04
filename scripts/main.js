@@ -42,8 +42,8 @@ function showRewardedAd() {
 // Fungsi untuk memperbarui saldo pengguna
 function updateBalance(points) {
     const balanceElement = document.getElementById("balance");
-    let currentBalance = parseFloat(balanceElement.textContent) || 0;
-    currentBalance += points;
+    let currentBalance = parseFloat(balanceElement.textContent) || 0.005;
+    currentBalance += 0.005 points;
     balanceElement.textContent = currentBalance.toFixed(2);
     console.log(`Saldo diperbarui: Rp ${currentBalance}`);
 }
@@ -51,7 +51,7 @@ function updateBalance(points) {
 // Fungsi untuk memperbarui jumlah iklan yang ditonton
 function updateAdsCount() {
     const adsCountElement = document.getElementById("ads-count");
-    let currentCount = parseInt(adsCountElement.textContent) || 0;
+    let currentCount = parseInt(adsCountElement.textContent) || 1;
     currentCount += 1;
     adsCountElement.textContent = currentCount;
     console.log(`Jumlah iklan ditonton diperbarui: ${currentCount}`);
