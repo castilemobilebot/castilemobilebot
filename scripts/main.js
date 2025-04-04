@@ -2,17 +2,19 @@ console.log("main.js berhasil dimuat!");
 
 // Inisialisasi Monetag
 (function initializeMonetag() {
-    if (show_9164092) {
+    if (typeof show_9164092 === 'function') { // Pastikan fungsi tersedia
         const tag = document.createElement('script');
         tag.src = '//whephiwums.com/sdk.js'; // URL SDK Monetag
         tag.dataset.zone = '9164092';
         tag.dataset.sdk = 'show_9164092';
         document.body.appendChild(tag);
         console.log("SDK Monetag berhasil dimuat.");
+    } else {
+        console.error("show_9164092 tidak tersedia.");
     }
 })();
 
-// Reward ad function
+// Fungsi menampilkan iklan rewarded
 function showRewardedAd() {
     try {
         if (typeof show_9164092 === 'function') {
@@ -20,7 +22,7 @@ function showRewardedAd() {
                 const adsCountElem = document.getElementById('ads-count');
                 const balanceElem = document.getElementById('balance');
                 if (adsCountElem && balanceElem) {
-                    let adsCount = Number(adsCountElem.textContent);
+                    let adsCount = Number(adsCountElem.textContent || '0'); // Antisipasi nilai awal yang kosong
                     let balance = parseFloat(balanceElem.textContent || '0');
 
                     if (adsCount < 200) {
@@ -28,14 +30,24 @@ function showRewardedAd() {
                         balance += 0.005; // Menambahkan reward +0.005 poin
 
                         adsCountElem.textContent = adsCount.toString();
-                        balanceElem.textContent = balance.toString();
+                        balanceElem.textContent = balance.toFixed(3); // Format angka untuk presisi
+                    } else {
+                        alert("Batas maksimal iklan telah tercapai.");
                     }
+                } else {
+                    console.warn("Elemen 'ads-count' atau 'balance' tidak ditemukan.");
                 }
+            }).catch(error => {
+                console.error("Error saat menampilkan iklan:", error);
+                alert("Terjadi kesalahan saat menampilkan iklan.");
             });
+        } else {
+            console.error("Fungsi 'show_9164092' tidak tersedia.");
+            alert("SDK Monetag belum dimuat.");
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred while showing the ad.');
+        alert('Terjadi kesalahan saat menampilkan iklan.');
     }
 }
 
@@ -59,7 +71,7 @@ function viewHistory() {
 
     let historyText = "📜 Riwayat Withdraw:\n";
     history.forEach(item => {
-        historyText += `- ${item.date}: Rp ${item.amount} (${item.status})\n`;
+        historyText += `- ${item.date}: Rp ${item.amount.toLocaleString()} (${item.status})\n`; // Format jumlah dengan pemisah ribuan
     });
     alert(historyText);
 }
