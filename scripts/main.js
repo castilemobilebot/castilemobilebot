@@ -12,28 +12,49 @@ console.log("main.js berhasil dimuat!");
     }
 })();
 
-// Menampilkan iklan dan memberikan reward
+// Menampilkan iklan Monetag dan memberikan reward
 function showRewardedAd() {
     try {
         if (typeof show_9164092 !== "undefined") {
             show_9164092({
+                // Callback ketika iklan selesai ditonton
                 onComplete: () => {
                     console.log("Iklan selesai ditonton. Menambahkan saldo.");
-                    updateBalance(5); // Tambahkan 5 poin
+                    updateBalance(5); // Tambahkan 5 poin ke saldo
+                    updateAdsCount(); // Tambahkan jumlah iklan yang ditonton
                     alert("Iklan selesai ditonton! Saldo Anda telah diperbarui.");
                 },
+                // Callback ketika pengguna menutup iklan sebelum selesai
                 onClose: () => {
                     console.log("Iklan ditutup sebelum selesai.");
                     alert("Anda menutup iklan sebelum selesai. Tidak ada saldo yang ditambahkan.");
                 }
             });
         } else {
-            console.error("show_9164092 tidak ditemukan.");
             alert("Iklan tidak tersedia saat ini.");
+            console.error("show_9164092 tidak ditemukan.");
         }
     } catch (error) {
         console.error("Error saat menampilkan iklan:", error);
     }
+}
+
+// Fungsi untuk memperbarui saldo pengguna
+function updateBalance(points) {
+    const balanceElement = document.getElementById("balance");
+    let currentBalance = parseFloat(balanceElement.textContent) || 0;
+    currentBalance += points;
+    balanceElement.textContent = currentBalance.toFixed(2);
+    console.log(`Saldo diperbarui: Rp ${currentBalance}`);
+}
+
+// Fungsi untuk memperbarui jumlah iklan yang ditonton
+function updateAdsCount() {
+    const adsCountElement = document.getElementById("ads-count");
+    let currentCount = parseInt(adsCountElement.textContent) || 0;
+    currentCount += 1;
+    adsCountElement.textContent = currentCount;
+    console.log(`Jumlah iklan ditonton diperbarui: ${currentCount}`);
 }
 
 // Proses withdraw saldo
