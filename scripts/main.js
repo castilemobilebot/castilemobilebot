@@ -38,22 +38,14 @@ function showRewardedAd() {
                         } else {
                             alert('Anda telah mencapai batas maksimum 200 iklan.');
                         }
-                    } else {
-                        console.error('Elemen HTML untuk ads-count atau balance tidak ditemukan.');
-                        alert('Terjadi kesalahan pada elemen halaman.');
-                    }
+                    }                     }
                 }, 15000); // Durasi 15 detik
             }).catch(error => {
                 console.error('Iklan gagal ditampilkan:', error);
                 alert('Terjadi kesalahan saat menampilkan iklan.');
             });
-        } else {
-            alert('Iklan belum siap. Silakan coba lagi nanti.');
-        }
-    } catch (error) {
-        console.error('Error dalam showRewardedAd:', error);
-        alert('Terjadi kesalahan saat mencoba menonton iklan.');
-    }
+        } }
+    } }
 }
 
 // Proses withdraw saldo
