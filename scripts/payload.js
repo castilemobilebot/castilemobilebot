@@ -1,3 +1,5 @@
+console.log("payload.js berhasil dimuat!");
+
 // Mengirim payload ke bot Telegram
 function sendPayload(message) {
     try {
@@ -9,7 +11,7 @@ function sendPayload(message) {
     }
 }
 
-// Contoh penggunaan saat tombol di klik
+// Contoh penggunaan saat tombol uji payload diklik
 document.getElementById("testSendPayload").addEventListener("click", () => {
     sendPayload("Payload contoh terkirim ke bot Telegram.");
 });
