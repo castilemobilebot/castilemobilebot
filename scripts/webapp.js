@@ -1,70 +1,72 @@
-// event.js
-document.addEventListener("DOMContentLoaded", () => {
-    // Periksa apakah Telegram WebApp tersedia
-    if (window.Telegram && window.Telegram.WebApp) {
-        const webApp = Telegram.WebApp;
+// Inisialisasi Telegram WebApp
+Telegram.WebApp.ready(); // Memastikan WebApp siap digunakan
 
-        // Inisialisasi WebApp Telegram
-        console.log("Telegram WebApp ditemukan. Menginisialisasi...");
-        webApp.ready();
+// Mendapatkan data pengguna dari Telegram
+const userData = Telegram.WebApp.initDataUnsafe || {};
+if (userData.user) {
+    // Update informasi pengguna ke elemen HTML
+    document.getElementById("userName").textContent = userData.user.first_name || "Nama User";
+    document.getElementById("userID").textContent = userData.user.username || "UserID";
+    document.getElementById("userAvatar").src = userData.user.photo_url || "assets/default-avatar.png";
+    console.log("Data pengguna:", userData);
+} else {
+    console.error("Data pengguna tidak tersedia. Pastikan Telegram WebApp SDK terhubung.");
+    alert("WebApp tidak terhubung dengan Telegram.");
+}
 
-        // Gaya tema otomatis berdasarkan Telegram
-        const themeParams = webApp.themeParams;
-        document.body.style.backgroundColor = themeParams.bg_color || '#ffffff';
-        document.body.style.color = themeParams.text_color || '#000000';
-
-        // Mendapatkan data pengguna
-        const initData = webApp.initDataUnsafe;
-        const user = initData.user;
-
-        if (user) {
-            // Perbarui elemen user
-            document.getElementById('userName').innerText = user.first_name || 'Pengguna';
-            document.getElementById('userID').innerText = user.username || 'Unknown';
-            document.getElementById('userAvatar').src = user.photo_url || 'assets/default-avatar.png';
-            console.log("Informasi pengguna berhasil dimuat.");
+// Fungsi untuk menampilkan iklan Monetag
+function showRewardedAd() {
+    try {
+        if (typeof show_9164092 !== "undefined") {
+            show_9164092(); // Memanggil Monetag SDK untuk menampilkan iklan
+            console.log("Iklan Monetag ditampilkan.");
         } else {
-            console.warn("Informasi pengguna tidak tersedia.");
+            alert("Iklan tidak tersedia saat ini.");
+            console.error("show_9164092 tidak ditemukan.");
         }
-
-        // Fungsi untuk menampilkan iklan
-        window.showRewardedAd = function () {
-            if (typeof show_9164092 === 'function') {
-                show_9164092().then(() => {
-                    alert('Iklan selesai ditonton! Saldo Anda telah diperbarui.');
-                    // Tambahkan logika untuk memperbarui saldo di sini
-                    const balanceElement = document.getElementById('balance');
-                    const newBalance = parseFloat(balanceElement.innerText) + 500; // Tambahkan Rp500
-                    balanceElement.innerText = newBalance.toFixed(2);
-
-                    // Perbarui jumlah iklan
-                    const adsCountElement = document.getElementById('ads-count');
-                    const newAdsCount = parseInt(adsCountElement.innerText) + 1;
-                    adsCountElement.innerText = newAdsCount;
-                }).catch((error) => {
-                    console.error('Gagal menampilkan iklan:', error);
-                });
-            } else {
-                alert('Iklan belum siap. Coba lagi nanti.');
-            }
-        };
-
-        // Fungsi untuk withdraw
-        window.withdraw = function () {
-            alert('Permintaan withdraw berhasil dikirim!');
-        };
-
-        // Fungsi untuk melihat riwayat withdraw
-        window.viewHistory = function () {
-            alert('Menampilkan riwayat withdraw...');
-        };
-
-        // Fungsi kembali ke menu utama
-        window.goBack = function () {
-            alert('Kembali ke menu utama...');
-        };
-
-    } else {
-        console.error("Telegram WebApp tidak tersedia!");
+    } catch (error) {
+        console.error("Error menampilkan iklan:", error);
     }
+}
+
+// Fungsi untuk proses Withdraw
+function withdraw() {
+    alert("Withdraw saldo Anda sedang diproses...");
+    console.log("Fungsi withdraw dipanggil.");
+    // Logika tambahan untuk withdraw dapat ditambahkan di sini
+}
+
+// Fungsi untuk melihat riwayat withdraw
+function viewHistory() {
+    alert("Menampilkan riwayat withdraw...");
+    console.log("Fungsi riwayat withdraw dipanggil.");
+    // Dummy data untuk riwayat withdraw
+    const history = [
+        { amount: 5000, date: "2025-04-01", status: "Berhasil" },
+        { amount: 10000, date: "2025-03-28", status: "Pending" }
+    ];
+
+    let historyText = "📜 Riwayat Withdraw:\n";
+    history.forEach(item => {
+        historyText += `- ${item.date}: Rp ${item.amount} (${item.status})\n`;
+    });
+    alert(historyText);
+    console.log(historyText);
+}
+
+// Fungsi untuk kembali ke menu utama
+function goBack() {
+    alert("Kembali ke menu utama...");
+    console.log("Fungsi kembali ke menu dipanggil.");
+    // Implementasi untuk navigasi menu utama dapat ditambahkan di sini
+}
+
+// Fungsi uji kirim payload
+document.getElementById("testSendPayload").addEventListener("click", () => {
+    Telegram.WebApp.sendData("Uji payload terkirim dari WebApp");
+    alert("Payload terkirim! Periksa data yang diterima di bot Telegram.");
+    console.log("Payload uji terkirim.");
 });
+
+// Log aktivitas saat WebApp aktif
+console.log("WebApp telah diinisialisasi dengan baik.");
