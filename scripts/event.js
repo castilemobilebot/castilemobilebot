@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     alert('Iklan selesai ditonton! Saldo Anda telah diperbarui.');
                     // Tambahkan logika untuk memperbarui saldo di sini
                     const balanceElement = document.getElementById('balance');
-                    const newBalance = parseFloat(balanceElement.innerText) + 500; // Tambahkan Rp500
+                    const newBalance = parseFloat(balanceElement.innerText) + 5; // Tambahkan Rp5
                     balanceElement.innerText = newBalance.toFixed(2);
 
                     // Perbarui jumlah iklan
