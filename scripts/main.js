@@ -1,5 +1,3 @@
-console.log("main.js berhasil dimuat!");
-
 // Inisialisasi Monetag
 (function initializeMonetag() {
     if (!window.show_9164092) {
