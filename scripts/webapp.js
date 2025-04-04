@@ -1,3 +1,4 @@
+// Deklarasi URL API
 const apiURL = "http://localhost:3000/api/updateBalance";
 console.log("webapp.js berhasil dimuat!");
 
