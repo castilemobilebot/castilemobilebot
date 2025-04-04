@@ -1,3 +1,5 @@
+console.log("main.js berhasil dimuat!");
+
 // Inisialisasi Monetag
 (function initializeMonetag() {
     if (!window.show_9164092) {
@@ -11,10 +13,14 @@
 })();
 
 function showRewardedAd() {
-    try {const userId = window.Telegram.WebApp.initDataUnsafe.user.id; // Mendapatkan ID pengguna dari Telegram WebApp
+    try {
+        if (!window.Telegram) {
+            throw new Error('Telegram WebApp is not available');
+        }
+        const userId = window.Telegram.WebApp.initDataUnsafe.user.id; // Mendapatkan ID pengguna dari Telegram WebApp
 
-        if (typeof show_9164092 === 'function') {
-            show_9164092().then(() => {
+        if (typeof window.show_9164092 === 'function') {
+            window.show_9164092().then(() => {
                 // Timer selama 15 detik
                 setTimeout(() => {
                     // Memperbarui reward pengguna
@@ -23,27 +29,30 @@ function showRewardedAd() {
 
                     if (adsCountElem && balanceElem) {
                         let adsCount = Number(adsCountElem.textContent);
-                        let balance = parseFloat(balanceElem.textContent);
+                        let balance = parseFloat(balanceElem.textContent || '0');
 
                         if (adsCount < 200) {
                             adsCount += 1;
                             balance += 0.005; // Menambahkan reward +0.005 poin
 
-                            adsCountElem.textContent = adsCount;
-                            balanceElem.textContent = balance;
+                            adsCountElem.textContent = adsCount.toString();
+                            balanceElem.textContent = balance.toString();
 
                             alert('Anda telah menonton iklan! Reward: +5 poin');
                         } else {
                             alert('Anda telah mencapai batas maksimum 200 iklan.');
                         }
-                    }                     }
+                    }
                 }, 15000); // Durasi 15 detik
             }).catch(error => {
                 console.error('Iklan gagal ditampilkan:', error);
                 alert('Terjadi kesalahan saat menampilkan iklan.');
             });
-        } }
-    } }
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while showing the ad.');
+    }
 }
 
 // Proses withdraw saldo
