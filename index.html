@@ -6,14 +6,12 @@
     <title>Castile Mobile Bot</title>
     <meta name="description" content="Tonton iklan, dapatkan saldo!">
     <meta name="monetag" content="59449f42804a7be353cd0932a3d9398d">
-    <meta name="theme-color" content="#0073e6">
-    <meta name="mobile-web-app-capable" content="yes">
 
     <!-- Telegram Web App SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
     <!-- Monetag Integration -->
-    <script src='//whephiwums.com/sdk.js' data-zone='9164092' data-sdk='show_9164092' defer></script>
-    
+    <script src="//whephiwums.com/sdk.js" data-zone="9164092" data-sdk="show_9164092" defer></script>
+
     <style>
         * {
             margin: 0;
@@ -32,17 +30,18 @@
             max-width: 400px;
             margin: 20px auto;
             padding: 20px;
-            background: rgba(0, 0, 0, 0);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
             text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .logo {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         .logo img {
-            max-width: 50px;
+            max-width: 60px;
         }
 
         .user-info {
@@ -51,37 +50,39 @@
 
         .user-info img {
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             margin-bottom: 10px;
         }
 
-        .user-info h2 {
+        .user-info h3 {
             margin: 10px 0 5px;
-            font-size: 10px;
+            font-size: 16px;
         }
 
-        .user-info p {
+        .user-info small {
             font-size: 14px;
             color: #555;
         }
 
         .balance-container {
             display: flex;
-            justify-content: center;
-            gap: 10px;
+            justify-content: space-around;
             margin: 20px auto;
         }
 
         .balance-card {
             background: linear-gradient(to right, #0073e6, #005bb5);
-            padding: 8px 30px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 10px;
             color: #fff;
             text-align: center;
+            flex: 1;
+            margin: 0 5px;
         }
 
         .buttons-container {
+            margin-top: 20px;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -92,9 +93,10 @@
             color: white;
             border: none;
             border-radius: 5px;
-            padding: 8px 30px;
-            font-size: 10px;
+            padding: 12px;
+            font-size: 14px;
             cursor: pointer;
+            transition: background 0.3s ease;
         }
 
         .buttons-container button:hover {
@@ -106,17 +108,16 @@
             bottom: 0;
             width: 100%;
             text-align: center;
-            padding: 10px 0;
-            background: rgba(0, 0, 0, 0);
+            margin-top: 20px;
             font-size: 12px;
-            color: black;
+            color: #070707;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">
-            <img src="assets/logo.png" alt="Logo">
+            <img src="assets/logo.png" alt="Logo Bot">
         </div>
         <div class="user-info">
             <img id="userAvatar" src="assets/default-avatar.png" alt="Avatar">
@@ -129,13 +130,13 @@
                 <p><span id="ads-count">0</span> / 200</p>
             </div>
             <div class="balance-card">
-                <h3>Balance</h3>
+                <h3>Saldo</h3>
                 <p>Rp<span id="balance">0.00</span></p>
             </div>
         </div>
         <div class="buttons-container">
             <button onclick="showRewardedAd()">Tonton Iklan +5</button>
-            <button onclick="withdraw()">Withdraw</button>
+            <button onclick="withdrawFunds()">Withdraw</button>
             <button onclick="viewHistory()">Riwayat Withdraw</button>
             <button onclick="goBack()">Kembali ke Menu</button>
         </div>
@@ -143,11 +144,11 @@
     <footer>
         <p>© 2025 Castile Mobile Bot</p>
     </footer>
-    
-<!-- Path untuk file JavaScript -->
-<script src="scripts/main.js"></script>
-<script src="scripts/event.js"></script>
-<script src="scripts/payload.js"></script>
-<script src="scripts/webapp.js"></script>
+
+    <!-- Path untuk file JavaScript -->
+    <script src="scripts/main.js" defer></script>
+    <script src="scripts/event.js" defer></script>
+    <script src="scripts/payload.js" defer></script>
+    <script src="scripts/webapp.js" defer></script>
 </body>
 </html>
