@@ -1,23 +1,22 @@
-console.log('main.js berhasil dimuat!');
+console.log("main.js berhasil dimuat!");
 
-// Menambahkan integrasi Monetag
+// Inisialisasi Monetag
 (function initializeMonetag() {
-    if (!window.show_9110246) {
+    if (!window.show_9164092) {
         const tag = document.createElement('script');
-        tag.src = '//whephiwums.com/sdk.js'; // Pastikan URL ini benar sesuai dengan Monetag SDK
-        tag.dataset.zone = '9110246';
-        tag.dataset.sdk = 'show_9110246';
+        tag.src = '//whephiwums.com/sdk.js'; // URL SDK Monetag
+        tag.dataset.zone = '9164092';
+        tag.dataset.sdk = 'show_9164092';
         document.body.appendChild(tag);
+        console.log("SDK Monetag berhasil dimuat.");
     }
 })();
 
-// Fungsi untuk menunjukkan iklan dan memperbarui reward
 function showRewardedAd() {
-    try {
-        const userId = window.Telegram.WebApp.initDataUnsafe.user.id; // Mendapatkan ID pengguna dari Telegram WebApp
+    try {const userId = window.Telegram.WebApp.initDataUnsafe.user.id; // Mendapatkan ID pengguna dari Telegram WebApp
 
-        if (typeof show_9110246 === 'function') {
-            show_9110246().then(() => {
+        if (typeof show_9164092 === 'function') {
+            show_9164092().then(() => {
                 // Timer selama 15 detik
                 setTimeout(() => {
                     // Memperbarui reward pengguna
@@ -30,7 +29,7 @@ function showRewardedAd() {
 
                         if (adsCount < 200) {
                             adsCount += 1;
-                            balance += 5; // Menambahkan reward +5 poin
+                            balance += 0.005; // Menambahkan reward +0.005 poin
 
                             adsCountElem.textContent = adsCount;
                             balanceElem.textContent = balance;
@@ -57,13 +56,33 @@ function showRewardedAd() {
     }
 }
 
-// Tambahkan event listener ke tombol "Tonton Iklan"
-document.addEventListener('DOMContentLoaded', () => {
-    const adButton = document.getElementById('show-ad-button');
-    if (adButton) {
-        adButton.addEventListener('click', showRewardedAd);
-        console.log('Event listener berhasil ditambahkan ke tombol Tonton Iklan.');
-    } else {
-        console.error('Tombol Tonton Iklan tidak ditemukan.');
-    }
-});
+// Proses withdraw saldo
+function withdraw() {
+    alert("Withdraw sedang diproses...");
+    console.log("Fungsi withdraw dipanggil.");
+    // Tambahkan logika untuk pengurangan saldo dan pengiriman data withdraw
+}
+
+// Menampilkan riwayat withdraw
+function viewHistory() {
+    alert("Menampilkan riwayat withdraw...");
+    console.log("Fungsi riwayat withdraw dipanggil.");
+
+    // Dummy data untuk riwayat withdraw
+    const history = [
+        { amount: 5000, date: "2025-04-01", status: "Berhasil" },
+        { amount: 10000, date: "2025-03-28", status: "Pending" }
+    ];
+
+    let historyText = "📜 Riwayat Withdraw:\n";
+    history.forEach(item => {
+        historyText += `- ${item.date}: Rp ${item.amount} (${item.status})\n`;
+    });
+    alert(historyText);
+}
+
+// Navigasi kembali ke menu utama
+function goBack() {
+    alert("Kembali ke menu utama...");
+    console.log("Navigasi ke menu utama.");
+}
