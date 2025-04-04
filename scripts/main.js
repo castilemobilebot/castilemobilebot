@@ -1,43 +1,47 @@
 console.log("main.js berhasil dimuat!");
 
-// Inisialisasi Monetag
+// **Inisialisasi Monetag SDK**
 (function initializeMonetag() {
-    if (typeof show_9164092 === 'function') { // Pastikan fungsi tersedia
-        const tag = document.createElement('script');
-        tag.src = '//whephiwums.com/sdk.js'; // URL SDK Monetag
-        tag.dataset.zone = '9164092';
-        tag.dataset.sdk = 'show_9164092';
+    try {
+        const tag = document.createElement("script");
+        tag.src = "//whephiwums.com/sdk.js"; // URL SDK Monetag
+        tag.dataset.zone = "9164092";
+        tag.dataset.sdk = "show_9164092";
         document.body.appendChild(tag);
         console.log("SDK Monetag berhasil dimuat.");
-    } else {
-        console.error("show_9164092 tidak tersedia.");
+    } catch (error) {
+        console.error("Error saat memuat Monetag SDK:", error);
     }
 })();
 
-// Fungsi menampilkan iklan rewarded
+// **Fungsi Menampilkan Iklan Rewarded**
 function showRewardedAd() {
     try {
-        if (typeof show_9164092 === 'function') {
+        if (typeof show_9164092 === "function") {
             show_9164092().then(() => {
-                const adsCountElem = document.getElementById('ads-count');
-                const balanceElem = document.getElementById('balance');
-                if (adsCountElem && balanceElem) {
-                    let adsCount = Number(adsCountElem.textContent || '0'); // Antisipasi nilai awal yang kosong
-                    let balance = parseFloat(balanceElem.textContent || '0');
+                const adsCountElem = document.getElementById("ads-count");
+                const balanceElem = document.getElementById("balance");
 
+                if (adsCountElem && balanceElem) {
+                    let adsCount = Number(adsCountElem.textContent || "0");
+                    let balance = parseFloat(balanceElem.textContent || "0");
+
+                    // Cek batas maksimal iklan
                     if (adsCount < 200) {
                         adsCount += 1;
-                        balance += 0.005; // Menambahkan reward +0.005 poin
+                        balance += 0.005; // Tambahkan reward 0.005 poin
 
                         adsCountElem.textContent = adsCount.toString();
-                        balanceElem.textContent = balance.toFixed(3); // Format angka untuk presisi
+                        balanceElem.textContent = balance.toFixed(3); // Format saldo dengan presisi
+                        console.log(`Iklan berhasil ditonton. Total iklan: ${adsCount}, Saldo: Rp ${balance}`);
                     } else {
                         alert("Batas maksimal iklan telah tercapai.");
+                        console.warn("Pengguna telah mencapai batas iklan harian.");
                     }
                 } else {
-                    console.warn("Elemen 'ads-count' atau 'balance' tidak ditemukan.");
+                    console.warn("Elemen 'ads-count' atau 'balance' tidak ditemukan di HTML.");
                 }
-            }).catch(error => {
+            }).catch((error) => {
                 console.error("Error saat menampilkan iklan:", error);
                 alert("Terjadi kesalahan saat menampilkan iklan.");
             });
@@ -46,24 +50,38 @@ function showRewardedAd() {
             alert("SDK Monetag belum dimuat.");
         }
     } catch (error) {
-        console.error('Error:', error);
-        alert('Terjadi kesalahan saat menampilkan iklan.');
+        console.error("Error saat memproses iklan rewarded:", error);
+        alert("Terjadi kesalahan internal.");
     }
 }
 
-// Proses withdraw saldo
-function withdraw() {
-    alert("Withdraw sedang diproses...");
-    console.log("Fungsi withdraw dipanggil.");
-    // Tambahkan logika untuk pengurangan saldo dan pengiriman data withdraw
+// **Proses Withdraw Saldo**
+function withdrawFunds() {
+    const balanceElem = document.getElementById("balance");
+    if (balanceElem) {
+        let currentBalance = parseFloat(balanceElem.textContent || "0");
+
+        // Atur batas minimal penarikan di sini
+        const minimalWithdraw = 5000; 
+
+        if (currentBalance >= minimalWithdraw) {
+            currentBalance -= minimalWithdraw; // Kurangi saldo dengan nilai minimal penarikan
+            balanceElem.textContent = currentBalance.toFixed(2);
+
+            alert(`Withdraw sebesar Rp ${minimalWithdraw} telah diproses.`);
+            console.log(`Withdraw berhasil. Saldo sekarang: Rp ${currentBalance}`);
+        } else {
+            alert(`Saldo tidak mencukupi untuk withdraw. Minimal penarikan adalah Rp ${minimalWithdraw}.`);
+            console.warn("Saldo tidak cukup untuk withdraw.");
+        }
+    } else {
+        console.error("Elemen saldo tidak ditemukan di HTML.");
+    }
 }
 
-// Menampilkan riwayat withdraw
+// **Menampilkan Riwayat Withdraw**
 function viewHistory() {
-    alert("Menampilkan riwayat withdraw...");
-    console.log("Fungsi riwayat withdraw dipanggil.");
-
-    // Dummy data untuk riwayat withdraw
+    console.log("Fungsi untuk melihat riwayat withdraw dipanggil.");
     const history = [
         { amount: 5000, date: "2025-04-01", status: "Berhasil" },
         { amount: 10000, date: "2025-03-28", status: "Pending" }
@@ -71,13 +89,15 @@ function viewHistory() {
 
     let historyText = "📜 Riwayat Withdraw:\n";
     history.forEach(item => {
-        historyText += `- ${item.date}: Rp ${item.amount.toLocaleString()} (${item.status})\n`; // Format jumlah dengan pemisah ribuan
+        historyText += `- ${item.date}: Rp ${item.amount.toLocaleString()} (${item.status})\n`;
     });
+
     alert(historyText);
+    console.log("Riwayat withdraw ditampilkan ke pengguna.");
 }
 
-// Navigasi kembali ke menu utama
+// **Navigasi ke Menu Utama**
 function goBack() {
     alert("Kembali ke menu utama...");
-    console.log("Navigasi ke menu utama.");
+    console.log("Pengguna kembali ke menu utama.");
 }
