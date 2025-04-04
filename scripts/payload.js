@@ -1,3 +1,4 @@
+const apiURL = "http://localhost:3000/api/updateBalance";
 console.log("payload.js berhasil dimuat!");
 
 // **Fungsi untuk Mengirim Payload ke Bot Telegram**
