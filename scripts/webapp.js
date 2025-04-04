@@ -44,23 +44,59 @@ function updateUserInfo() {
     }
 }
 
-// **Fungsi Memperbarui Saldo**
-function updateBalance(points) {
-    const balanceElem = document.getElementById("balance");
-    if (balanceElem) {
-        let currentBalance = parseFloat(balanceElem.textContent) || 0;
-        currentBalance += points;
-        balanceElem.textContent = currentBalance.toFixed(2); // Format saldo agar rapi
-        console.log(`Saldo diperbarui: Rp ${currentBalance}`);
-    } else {
-        console.error("Elemen saldo tidak ditemukan di HTML.");
+// **Fungsi Memperbarui Saldo dari Backend**
+async function fetchBalance(userId) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/getBalance?userId=${userId}`);
+        const data = await response.json();
+        if (data.status === "success") {
+            const balanceElem = document.getElementById("balance");
+            if (balanceElem) {
+                balanceElem.textContent = data.balance.toFixed(2); // Tampilkan saldo
+                console.log(`Saldo diperbarui: Rp ${data.balance}`);
+            }
+        } else {
+            console.error(`Error saat mengambil saldo: ${data.message}`);
+        }
+    } catch (error) {
+        console.error("Error saat memanggil API getBalance:", error);
     }
 }
+
+// **Fungsi Memperbarui Saldo setelah Menonton Iklan**
+async function updateBalance(points) {
+    const userId = "123456"; // Ganti dengan userId yang sesuai
+    try {
+        const response = await fetch("http://localhost:3000/api/updateBalance", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId, points }),
+        });
+        const data = await response.json();
+        if (data.status === "success") {
+            const balanceElem = document.getElementById("balance");
+            if (balanceElem) {
+                balanceElem.textContent = data.balance.toFixed(2); // Tampilkan saldo
+                console.log(`Saldo berhasil diperbarui: Rp ${data.balance}`);
+            }
+        } else {
+            console.error(`Error saat memperbarui saldo: ${data.message}`);
+        }
+    } catch (error) {
+        console.error("Error saat memanggil API updateBalance:", error);
+    }
+}
+
+// **Event Listener untuk Tombol Menonton Iklan**
+document.getElementById("rewardedAdButton").addEventListener("click", async () => {
+    const points = 0.005; // Poin yang didapatkan setelah menonton iklan
+    await updateBalance(points); // Memperbarui saldo di backend
+});
 
 // **Fungsi Mengirim Data saat WebApp Ditutup**
 function sendClosePayload() {
     try {
-        sendPayload("WebApp ditutup oleh pengguna."); // Kirim data saat WebApp ditutup
+        Telegram.WebApp.sendData("WebApp ditutup oleh pengguna."); // Kirim data saat WebApp ditutup
         console.log("Payload dikirim saat WebApp ditutup.");
     } catch (error) {
         console.error("Error saat mengirim payload saat penutupan WebApp:", error);
@@ -71,4 +107,8 @@ function sendClosePayload() {
 Telegram.WebApp.onEvent("close", sendClosePayload);
 
 // **Panggilan Awal untuk Memperbarui Informasi Pengguna**
-updateUserInfo();
+document.addEventListener("DOMContentLoaded", () => {
+    const userId = "123456"; // Ganti dengan userId yang sesuai
+    updateUserInfo();
+    fetchBalance(userId); // Ambil saldo dari backend
+});
