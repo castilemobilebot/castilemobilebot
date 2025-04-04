@@ -82,21 +82,30 @@ function withdrawFunds() {
     }
 }
 
+// **Array untuk Riwayat Transaksi**
+const transactions = [];
+
 // **Menampilkan Riwayat Withdraw**
 function viewHistory() {
-    console.log("Fungsi untuk melihat riwayat withdraw dipanggil.");
-    const history = [
-        { amount: 5000, date: "2025-04-01", status: "Berhasil" },
-        { amount: 10000, date: "2025-03-28", status: "Pending" }
-    ];
+    if (transactions.length === 0) {
+        alert("Riwayat transaksi kosong. Belum ada penarikan saldo yang dilakukan.");
+        console.log("Riwayat transaksi kosong.");
+    } else {
+        let historyText = "📜 Riwayat Withdraw:\n";
+        transactions.forEach(item => {
+            historyText += `- Tanggal: ${item.date}, Jumlah: Rp ${item.amount}, Status: ${item.status}\n`;
+        });
 
-    let historyText = "📜 Riwayat Withdraw:\n";
-    history.forEach(item => {
-        historyText += `- ${item.date}: Rp ${item.amount.toLocaleString()} (${item.status})\n`;
-    });
+        alert(historyText);
+        console.log("Riwayat transaksi berhasil ditampilkan.");
+    }
+}
 
-    alert(historyText);
-    console.log("Riwayat withdraw ditampilkan ke pengguna.");
+// **Fungsi Menambah Transaksi**
+function addTransaction(amount, status) {
+    const date = new Date().toISOString().split('T')[0]; // Format tanggal (YYYY-MM-DD)
+    transactions.push({ amount, date, status });
+    console.log(`Transaksi baru ditambahkan: Rp ${amount}, Tanggal: ${date}, Status: ${status}`);
 }
 
 // **Navigasi ke Menu Utama**
