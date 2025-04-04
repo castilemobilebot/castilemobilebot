@@ -20,8 +20,8 @@ function showRewardedAd() {
                 // Callback ketika iklan selesai ditonton
                 onComplete: () => {
                     console.log("Iklan selesai ditonton. Menambahkan saldo.");
-                    updateBalance(5); // Tambahkan 5 poin ke saldo
-                    updateAdsCount(); // Tambahkan jumlah iklan yang ditonton
+                    updateBalance(0.005); // Tambahkan 0.005 poin ke saldo
+                    updateAdsCount(1); // Tambahkan jumlah iklan yang ditonton
                     alert("Iklan selesai ditonton! Saldo Anda telah diperbarui.");
                 },
                 // Callback ketika pengguna menutup iklan sebelum selesai
