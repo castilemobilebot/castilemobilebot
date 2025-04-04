@@ -12,85 +12,57 @@ console.log("main.js berhasil dimuat!");
     }
 })();
 
-// Fungsi untuk menampilkan iklan dan memperbarui reward
+// Menampilkan iklan dan memberikan reward
 function showRewardedAd() {
     try {
-        if (typeof show_9164092 === "function") {
-            show_9164092().then(() => {
-                console.log("Iklan berhasil ditampilkan. Menunggu selama 15 detik...");
-                // Timer selama 15 detik
-                setTimeout(() => {
-                    const adsCountElem = document.getElementById("ads-count");
-                    const balanceElem = document.getElementById("balance");
-
-                    if (adsCountElem && balanceElem) {
-                        let adsCount = Number(adsCountElem.textContent);
-                        let balance = parseFloat(balanceElem.textContent);
-
-                        if (adsCount < 200) {
-                            adsCount += 1;
-                            balance += 5; // Menambahkan reward +5
-
-                            // Update elemen DOM
-                            adsCountElem.textContent = adsCount;
-                            balanceElem.textContent = balance.toFixed(2);
-
-                            alert("Anda telah menonton iklan! Reward: +5 poin");
-                            console.log(`Iklan ke-${adsCount} berhasil! Balance sekarang: Rp${balance.toFixed(2)}`);
-                        } else {
-                            alert("Anda telah mencapai batas maksimum 200 iklan.");
-                            console.warn("Batas maksimum iklan tercapai.");
-                        }
-                    } else {
-                        alert("Elemen ads-count atau balance tidak ditemukan. Silakan periksa ID elemen.");
-                        console.error("Elemen HTML tidak ditemukan.");
-                    }
-                }, 15000); // Durasi 15 detik
-            }).catch((error) => {
-                console.error("Terjadi kesalahan saat menampilkan iklan:", error);
-                alert("Iklan gagal ditampilkan. Silakan coba lagi nanti.");
+        if (typeof show_9164092 !== "undefined") {
+            show_9164092({
+                onComplete: () => {
+                    console.log("Iklan selesai ditonton. Menambahkan saldo.");
+                    updateBalance(5); // Tambahkan 5 poin
+                    alert("Iklan selesai ditonton! Saldo Anda telah diperbarui.");
+                },
+                onClose: () => {
+                    console.log("Iklan ditutup sebelum selesai.");
+                    alert("Anda menutup iklan sebelum selesai. Tidak ada saldo yang ditambahkan.");
+                }
             });
         } else {
-            alert("SDK Monetag tidak siap. Silakan tunggu beberapa saat.");
-            console.warn("show_9110246 belum terdefinisi.");
+            console.error("show_9164092 tidak ditemukan.");
+            alert("Iklan tidak tersedia saat ini.");
         }
     } catch (error) {
-        console.error("Error dalam showRewardedAd:", error);
-        alert("Terjadi kesalahan saat mencoba menonton iklan.");
+        console.error("Error saat menampilkan iklan:", error);
     }
 }
 
-// Fungsi tambahan untuk tombol Withdraw
+// Proses withdraw saldo
 function withdraw() {
-    alert("Fitur withdraw masih dalam pengembangan!");
-    console.log("Withdraw ditekan oleh pengguna.");
+    alert("Withdraw sedang diproses...");
+    console.log("Fungsi withdraw dipanggil.");
+    // Tambahkan logika untuk pengurangan saldo dan pengiriman data withdraw
 }
 
-// Fungsi tambahan untuk tombol Riwayat Withdraw
+// Menampilkan riwayat withdraw
 function viewHistory() {
     alert("Menampilkan riwayat withdraw...");
-    console.log("Riwayat withdraw diminta oleh pengguna.");
+    console.log("Fungsi riwayat withdraw dipanggil.");
+
+    // Dummy data untuk riwayat withdraw
+    const history = [
+        { amount: 5000, date: "2025-04-01", status: "Berhasil" },
+        { amount: 10000, date: "2025-03-28", status: "Pending" }
+    ];
+
+    let historyText = "📜 Riwayat Withdraw:\n";
+    history.forEach(item => {
+        historyText += `- ${item.date}: Rp ${item.amount} (${item.status})\n`;
+    });
+    alert(historyText);
 }
 
-// Fungsi tambahan untuk tombol Kembali ke Menu
+// Navigasi kembali ke menu utama
 function goBack() {
-    alert("Kembali ke menu utama.");
-    console.log("Pengguna kembali ke menu.");
+    alert("Kembali ke menu utama...");
+    console.log("Navigasi ke menu utama.");
 }
-
-// Tambahkan event listener ke tombol saat halaman dimuat
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("Halaman berhasil dimuat, menambahkan event listener.");
-
-    const adButton = document.querySelector("button[onclick='showRewardedAd()']");
-    const withdrawButton = document.querySelector("button[onclick='withdraw()']");
-    const historyButton = document.querySelector("button[onclick='viewHistory()']");
-    const backButton = document.querySelector("button[onclick='goBack()']");
-
-    if (adButton) adButton.addEventListener("click", showRewardedAd);
-    if (withdrawButton) withdrawButton.addEventListener("click", withdraw);
-    if (historyButton) historyButton.addEventListener("click", viewHistory);
-    if (backButton) backButton.addEventListener("click", goBack);
-
-    console.log("Semua tombol berhasil ditambahkan event listener.");
-});
