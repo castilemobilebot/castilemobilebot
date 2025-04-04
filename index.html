@@ -143,17 +143,8 @@
     <footer>
         <p>© 2025 Castile Mobile Bot</p>
     </footer>
-<script>
-    Telegram.WebApp.ready(); // Mengaktifkan WebApp
-    const userData = Telegram.WebApp.initDataUnsafe || {};
-    if (userData.user) {
-        document.getElementById('userName').textContent = userData.user.first_name || "Nama User";
-        document.getElementById('userID').textContent = userData.user.username || "UserID";
-    } else {
-        console.error("Data Telegram tidak ditemukan.");
-        alert("WebApp tidak terhubung dengan Telegram.");
-    }
-</script>
+    
+<!-- Path untuk file JavaScript -->
 <script src="scripts/main.js"></script>
 <script src="scripts/event.js"></script>
 <script src="scripts/payload.js"></script>
