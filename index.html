@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Castile Mobile Bot</title>
+  <meta name="description" content="Tonton iklan, dapatkan saldo harian secara mudah dengan Castile Mobile Bot.">
+  <meta name="monetag" content="59449f42804a7be353cd0932a3d9398d">
+
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Monetag Ads SDK -->
+  <script 
+    src="https://whephiwums.com/sdk.js" 
+    data-zone="9164092" 
+    data-sdk="show_9164092">
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css" />
+
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Background -->
+    <div class="background-layer"></div>
+    
+    <!-- User Info Layer -->
+    <div class="user-layer">
+      <img id="userAvatar" class="avatar" src="assets/default-avatar.png" alt="Avatar" />
+      <div class="user-name" id="userName">Nama User</div>
+      <div class="user-id">@<span id="userID">UserID</span></div>
+      <div class="status-line">
+        <div class="ads-status">
+          Iklan Hari Ini:
+          <div class="ads-count"><span id="ads-count">0</span> / 1000</div>
+        </div>
+        <div class="saldo-status">
+          Saldo:
+          <div class="saldo-count">Rp <span id="balance">0.000</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Button Layer -->
+    <div class="button-layer">
+
+      <div class="logo-box">
+        <img src="assets/logo.png" alt="Castile Logo" />
+      </div>
+
+      <button class="btn-ads" id="rewardedAdButton">+5 Iklan</button>    
+      <button class="btn-withdraw" id="withdrawButton">Withdraw</button>    
+      <button class="btn-history" id="historyButton">Riwayat</button>    
+      <button class="btn-kembali" id="menuButton">Kembali</button>
+      <button id="toggleMusic" class="btn-music">🎵 Play</button>
+
+      <!-- Form Withdraw -->
+      <div id="withdrawForm" class="form-withdraw hidden">
+        <input type="text" id="phone" placeholder="Nomor HP (DANA)" />
+        <input type="number" id="amount" placeholder="Jumlah Penarikan" />
+        <button id="withdrawBtn">Kirim Withdraw</button>
+      </div>
+      
+      <!-- Footer -->
+      <div class="footer">© 2025 Castile Mobile Bot</div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="scripts/main.js"></script>
+  <script src="scripts/webapp.js"></script>
+  <script src="scripts/payload.js"></script>
+  <script src="scripts/events.js"></script>
+</body>
+</html>
