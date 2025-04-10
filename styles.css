@@ -5,7 +5,7 @@
 
 html, body {
   margin: 0px;
-  padding: 0px;
+  padding: 40px;
   font-family: sans-serif;
   background-image: url('assets/bintang.gif');
   background-repeat: no-repeat;
@@ -18,8 +18,8 @@ html, body {
 /* Wrapper Utama */
 .wrapper {
   position: relative;
-  width: 405px;
-  height: 770px;
+  width: 400px;
+  height: 755px;
   margin: 0px auto;
   overflow: hidden;
   background-color: black;
@@ -30,8 +30,8 @@ html, body {
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 405px;
-  height: 750px;
+  width: 400px;
+  height: 755px;
   border-radius: 25px;
   background-image: url('assets/background.jpg');
   background-size: cover;
@@ -140,8 +140,8 @@ html, body {
 /* Tombol Iklan */
 .btn-ads {
   position: absolute;
-  top: 71px;
-  left: 261px;
+  top: 72px;
+  left: 257px;
   width: 90px;
   height: 90px;
   background: black;
@@ -159,7 +159,7 @@ html, body {
 .btn-history {
   position: absolute;
   top: 255px;
-  left: 217px;
+  left: 214px;
   width: 90px;
   height: 80px;
   background: black;
@@ -177,7 +177,7 @@ html, body {
 .btn-withdraw {
   position: absolute;
   top: 195px;
-  left: 93px;
+  left: 90px;
   width: 95px;
   height: 95px;
   background: black;
@@ -195,7 +195,7 @@ html, body {
 .btn-kembali {
   position: absolute;
   top: 60px;
-  left: 40px;
+  left: 39px;
   width: 45px;
   height: 150px;
   background: black;
@@ -224,7 +224,7 @@ html, body {
 .btn-music {
   position: absolute;
   bottom: 245px;
-  left: 180px;
+  left: 178px;
   background: black;
   color: white;
   padding: 13px 17px;
