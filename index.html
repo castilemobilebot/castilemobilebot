@@ -1,22 +1,19 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Castile Mobile Bot</title>
   <meta name="description" content="Tonton iklan, dapatkan saldo harian secara mudah dengan Castile Mobile Bot.">
-  <meta name="monetag" content="59449f42804a7be353cd0932a3d9398d">
+  <meta name="monetag" content="3f825af08f0c8ec4bdb0bf105ae1175d">
 
   <!-- Telegram WebApp SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <!-- Monetag Ads SDK -->
-  <script 
-    src="https://whephiwums.com/sdk.js" 
-    data-zone="9164092" 
-    data-sdk="show_9164092">
-  </script>
-
+  <script src='https://whephiwums.com/sdk.js' data-zone='9213030' data-sdk='show_9213030'></script>
+  <script src="https://www.profitableratecpm.com/n19eun87q?key=ba8a8ae34e5f65c0e356708013b3afcc"data-zone='26246896' data-sdk='show_26246896'></script>
+  
   <!-- CSS -->
   <link rel="stylesheet" href="styles.css" />
 
@@ -62,16 +59,32 @@
         <input type="number" id="amount" placeholder="Jumlah Penarikan" />
         <button id="withdrawBtn">Kirim Withdraw</button>
       </div>
+
+      <!-- Popup Riwayat -->
+      <div id="historyPopup" class="popup hidden">
+        <div class="popup-header">
+            <span>📜 Riwayat Withdraw</span>
+            <button id="closeHistory">Tutup</button>
+        </div>
+        <div id="historyContent" class="popup-content"></div>
+      </div>
+
+      <!-- Pesan -->
+      <div id="message" class="message-box hidden"></div>
       
       <!-- Footer -->
       <div class="footer">© 2025 Castile Mobile Bot</div>
     </div>
   </div>
 
+  <!-- ✅ Spinner -->
+  <div id="loadingSpinner" class="spinner"></div>
+
   <!-- JavaScript -->
-  <script src="scripts/main.js"></script>
-  <script src="scripts/webapp.js"></script>
   <script src="scripts/payload.js"></script>
+  <script src="scripts/api.js"></script>
+  <script src="scripts/webapp.js"></script>
+  <script src="scripts/main.js"></script>
   <script src="scripts/events.js"></script>
 </body>
 </html>
